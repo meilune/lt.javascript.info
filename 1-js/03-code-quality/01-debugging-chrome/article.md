@@ -2,160 +2,160 @@
 
 Prieš rašydami apie sudėtingesnius kodus, pakalbėkime apie klaidų ieškojimą ir taisymą (ang. debugging).
 
-[Debugging](https://en.wikipedia.org/wiki/Debugging) yra toks procesas kai ieškome ir taisome klaidas skriptuose. Visos modernios naršyklės ir didžioji dalis kitų aplinkų palaiko klaidų taisymo įrankius -- tam tikra programuotojo įrankių vartotojo sąsaja (UI), kuri palengvina klaidų taisymą. Ji taip pat leidžia atsekti kodą žingsnis po žingsnio, kad pamatytume kas iš tikrųjų vyksta.
+[Išrinktavimas](https://en.wikipedia.org/wiki/Debugging) yra toks procesas kai ieškome ir taisome klaidas skriptuose. Visos modernios naršyklės ir didžioji dalis kitų aplinkų palaiko klaidų taisymo (kitaip išriktavimo) įrankius -- tam tikra programuotojo įrankių vartotojo sąsaja (UI), kuri palengvina klaidų taisymą. Ji taip pat leidžia atsekti kodą žingsnis po žingsnio, kad pamatytume kas iš tikrųjų vyksta.
 
-Mes tam naudosime Chrome, nes jis turi užtektinai funkcijų, bet didžioji dalis naršyklių turi panašius procesus`.
+Mes tam naudosime Chrome, nes ši naršyklė turi užtektinai funkcijų, bet didžioji dalis naršyklių turi panašius procesus.
 
-## The "Sources" panel
+## Šaltinių panelis (ang. "Sources" panel)
 
-Your Chrome version may look a little bit different, but it still should be obvious what's there.
+Jūsų turima Chrome versija gali šiek tiek skirtis, bet ne tiek daug, kad nesuprastumėte kas kur yra.
 
-- Open the [example page](debugging/index.html) in Chrome.
-- Turn on developer tools with `key:F12` (Mac: `key:Cmd+Opt+I`).
-- Select the `Sources` panel.
+- Atsidarykite Chrome [pavyzdinį puslapį](debugging/index.html).
+- Įjunkite kūrėjo įrankius paspaudami `key:F12` (Mac: `key:Cmd+Opt+I`).
+- Pasirinkite panelį `Sources`.
 
-Here's what you should see if you are doing it for the first time:
+Štai ką turėtumėte pamatyti, jeigu tai darote pirmą kartą:
 
 ![](chrome-open-sources.svg)
 
-The toggler button <span class="devtools" style="background-position:-172px -98px"></span> opens the tab with files.
+Perjungimo mygtukas (ang. toggle button) <span class="devtools" style="background-position:-172px -98px"></span> atidaro kortelę su dokumentais.
 
-Let's click it and select `hello.js` in the tree view. Here's what should show up:
+Paspauskime ir pasirinkime `hello.js` detalaus vaizdo struktūroje. Štai kas turėtų pasirodyti:
 
 ![](chrome-tabs.svg)
 
-Here we can see three zones:
+Matome tris zonas:
 
-1. The **Resources zone** lists HTML, JavaScript, CSS and other files, including images that are attached to the page. Chrome extensions may appear here too.
-2. The **Source zone** shows the source code.
-3. The **Information and control zone** is for debugging, we'll explore it soon.
+1. **Resursų zona** (ang. Resources zone) pateikia HTML, JavaScript, CSS ir kitų dokumentų sąrašą, įskaitant ir prie puslapio pridėtus paveikslus. Chrome papildiniai (ang. extensions) taip pat gali čia pasirodyti.
+2. **Šaltinio zona** (ang. Source zone) parodo šaltinio kodą.
+3. **Informacinė ir kontrolės zona** (ang. Information and control zone) yra skirta klaidų taisymui, mes ją greitai tyrinėsime.
 
-Now you could click the same toggler <span class="devtools" style="background-position:-172px -122px"></span> again to hide the resources list and give the code some space.
+Dabar galite vėl paspausti tą patį perjungimo mygtuką <span class="devtools" style="background-position:-172px -122px"></span>, kad paslėptumėte resursų sąrašą ir duotumėte kodui šiek tiek vietos.
 
-## Console
+## Konsolė (ang. Console)
 
-If we press `key:Esc`, then a console opens below. We can type commands there and press `key:Enter` to execute.
+Jeigu paspausime `key:Esc`, tada apačioje atsidarys konsolė. Ten galime rašyti komandas ir paspaudę `key:Enter` jas įvykdyti.
 
-After a statement is executed, its result is shown below.
+Kai teiginys yra įvykdomas, jo rezultatai parodomi apačioje.
 
-For example, here `1+2` results in `3`, and `hello("debugger")` returns nothing, so the result is `undefined`:
+Pavyzdžiui, čia `1+2` rezultatas yra `3`, o `hello("išriktuotojau")` neduoda nieko, tad rezultatas yra `undefined`:
 
 ![](chrome-sources-console.svg)
 
-## Breakpoints
+## Lūžio taškai (ang. Breakpoints)
 
-Let's examine what's going on within the code of the [example page](debugging/index.html). In `hello.js`, click at line number `4`. Yes, right on the `4` digit, not on the code.
+Ištirkime kas vyksta su kodu [pavyzdiniame puslapyje](debugging/index.html). Dokumente `hello.js`, paspauskite ant eilutės numeris `4`. Taip, būtent ant skaičiaus `4`, ne ant pačio kodo.
 
-Congratulations! You've set a breakpoint. Please also click on the number for line `8`.
+Sveikiname! Jūs ką tik nustatėte lūžio tašką. Prašau, taip pat paspauskite ant skaičiaus `8` eilutei.
 
-It should look like this (blue is where you should click):
+Turėtų atrodyti taip, (mėlyna aprodo kur jums reikia paspausti):
 
 ![](chrome-sources-breakpoint.svg)
 
-A *breakpoint* is a point of code where the debugger will automatically pause the JavaScript execution.
+*Lūžio taškas* yra ta kodo vieta kur išriktavimas automatiškai stabtelės JavaScript įvykdymą.
 
-While the code is paused, we can examine current variables, execute commands in the console etc. In other words, we can debug it.
+Kol kodas yra pristabdytas, mes galėsime peržvelgti esamus kintamuosius, įvykdyti komandas konsolėje ir t.t. Kitaip sakant galėsime jį išriktuoti (taisyti klaidas).
 
-We can always find a list of breakpoints in the right panel. That's useful when we have many breakpoints in various files. It allows us to:
-- Quickly jump to the breakpoint in the code (by clicking on it in the right panel).
-- Temporarily disable the breakpoint by unchecking it.
-- Remove the breakpoint by right-clicking and selecting Remove.
-- ...And so on.
+Mes visada galėsime surasti lūžio taškus panelyje dešinėje. Tai yra naudinga kai turime skirtingus lūūžio taškus, skirtinguose dokumentuose. Tai mums leidžia:
+- Greitai peršokti prie lūžio taško kode (paspaudami jį panelyje dešinėje).
+- Laikinai atjungti lūžio tašką atžymint jo varnelę.
+- Panaikinti lūžio tašką paspaudžiant dešinį pelės mygtuką ir pasirenkant pašalinti (ang. Remove).
+- ...Ir taip toliau.
 
-```smart header="Conditional breakpoints"
-*Right click* on the line number allows to create a *conditional* breakpoint. It only triggers when the given expression is truthy.
+```smart header="Sąlyginiai lūžio taškai"
+*Dešnio mygtuko paspaudimas* ant eilės skaičiaus leidžia sukurti *sąlyginį* lūžio tašką. Jis paleidžiamas tik tokiu atveju kai yra duota išraiška yra tiesa (ang truthy).
 
-That's handy when we need to stop only for a certain variable value or for certain function parameters.
+Tai labai naudinga kai mums reikia stabtelėti tik dėl tam tikro kintamojo vertės arba dėl tam tikrų funkcijos parametrų.
 ```
 
-## Debugger command
+## Išriktuotojo komanda (ang. Debugger command)
 
-We can also pause the code by using the `debugger` command in it, like this:
+Mes taip pat galime stabtelėti kodą naudodami `debugger` komandą jame, kaip ši:
 
 ```js
 function hello(name) {
   let phrase = `Hello, ${name}!`;
 
 *!*
-  debugger;  // <-- the debugger stops here
+  debugger;  // <-- išriktuotojas čia sustoja
 */!*
 
   say(phrase);
 }
 ```
 
-That's very convenient when we are in a code editor and don't want to switch to the browser and look up the script in developer tools to set the breakpoint.
+Tai yra labai naudinga kai mes esame kodo redaktoriuje ir nenorime pereiti prie naršyklės bei sukurti lūžio tašką per klaidų taisymo įrankius. 
 
 
-## Pause and look around
+## Sustokite ir apsižvelgykite
 
-In our example, `hello()` is called during the page load, so the easiest way to activate the debugger (after we've set the breakpoints) is to reload the page. So let's press `key:F5` (Windows, Linux) or `key:Cmd+R` (Mac).
+Mūsų pavyzdyje, `hello()` iškviečiamas paleidžiant puslapį, tad lengviausias būdas aktyvuoti išriktuotoja (kai mes pasirinkome lūžio taškus) yra perkraunant puslapį. Tad paspauskime mygtuką `key:F5` (Windows, Linux) arba `key:Cmd+R` (Mac).
 
-As the breakpoint is set, the execution pauses at the 4th line:
+Kai lūžio taškai yra nustatyti, įvykdymas stabteli prie ketvirtos eilės:
 
 ![](chrome-sources-debugger-pause.svg)
 
-Please open the informational dropdowns to the right (labeled with arrows). They allow you to examine the current code state:
+Prašau, atidarykite informacinius išsiskleidžiančius meniu dešinėje (pažymėtus rodyklėmis). Jie leis jums ištirti esamo kodo padėtį:
 
-1. **`Watch` -- shows current values for any expressions.**
+1. **`Watch` (stebėjimas) -- parodo esamas vertes bet kokioms išraiškoms.**
 
-    You can click the plus `+` and input an expression. The debugger will show its value at any moment, automatically recalculating it in the process of execution.
+    Jūs galite paspausti `+` ir įvesti išraišką. Išriktuotojas parodys jos vertę bet kuriuo momentu, automatiškai perskaičiuodamas įvykdymo proceso metu.
 
-2. **`Call Stack` -- shows the nested calls chain.**
+2. **`Call Stack` (iškvietimo eiliškumas) -- parodo matrioškinių šaukinių grandinę (ang. nested calls chain).**
 
-    At the current moment the debugger is inside `hello()` call, called by a script in `index.html` (no function there, so it's called "anonymous").
+    Esamu momentu išriktuotojas yra `hello()` šaukinio  viduje, iškviesto skripto `index.html` pagalba (viduje nėra jokios funkcijos, tad jis vadinamas "anoniminiu").
 
-    If you click on a stack item (e.g. "anonymous"), the debugger jumps to the corresponding code, and all its variables can be examined as well.
-3. **`Scope` -- current variables.**
+    Jeigu paspausite ant iškvietimo eilės (pvz. "anonymous"), išriktuotojas peršoks prie atitinkamo kodo ir tada visi jo kintamieji gali būti ištirti. 
+3. **`Scope` (apimtis) -- esami kintamieji.**
 
-    `Local` shows local function variables. You can also see their values highlighted right over the source.
+    `Local` (vietiniai) parodo vietinių funkcijų kintamuosius. Jūs taip pat galite pamatyti jų vertes paryškintas šaltinyje. 
 
-    `Global` has global variables (out of any functions).
+    `Global` (globalūs) turi globalius kintamuosius (iš bet kurios funkcijos).
 
-    There's also `this` keyword there that we didn't study yet, but we'll do that soon.
+    Taip pat yra raktažodis `this`, kurio dar nesimokinome, bet greitu laiku tai padarysime.
 
-## Tracing the execution
+## Sekant įvykdymą
 
-Now it's time to *trace* the script.
+Dabar laikas *sekti* skriptą.
 
-There are buttons for it at the top of the right panel. Let's engage them.
+Tam yra mygtukai dešinio panelio viršuje. Panaudokime juos.
 <!-- https://github.com/ChromeDevTools/devtools-frontend/blob/master/front_end/Images/src/largeIcons.svg -->
-<span class="devtools" style="background-position:-146px -168px"></span> -- "Resume": continue the execution, hotkey `key:F8`.
-: Resumes the execution. If there are no additional breakpoints, then the execution just continues and the debugger loses control.
+<span class="devtools" style="background-position:-146px -168px"></span> -- "Resume" (tęsti): tęskite įvykdymą, mygtukas `key:F8`.
+: Vykdymas tęsiamas. Jeigu nėra papildomų lūžio taškų, tad vykdymas tiesiog vyksta toliau ir išriktuotojas netenka kontrolės.
 
-    Here's what we can see after a click on it:
+    Štai ką galime pamatyti paspausdami ant jo:
 
     ![](chrome-sources-debugger-trace-1.svg)
 
-    The execution has resumed, reached another breakpoint inside `say()` and paused there. Take a look at the "Call Stack" at the right. It has increased by one more call. We're inside `say()` now.
+    Įvykdymas tęsiamas, pasiekiamas kitas lūžio taškas viduje `say()` ir ten pristabdomas. Pažiūrėkite į "Call Stack" dešinėje. Jis pasipildė dar vienu šaukiniu. Dabar mes esame `say()` viduje.
 
-<span class="devtools" style="background-position:-200px -190px"></span> -- "Step": run the next command, hotkey `key:F9`.
-: Run the next statement. If we click it now, `alert` will be shown.
+<span class="devtools" style="background-position:-200px -190px"></span> -- "Step" (žingsniuoti): paleiskite sekančią komandą, mygtukas `key:F9`.
+: Paleiskite sekantį teiginį. Jeigu jį paspausime dabar, bus parodytas įspėjimas `alert`.
 
-    Clicking this again and again will step through all script statements one by one.
+    Spaudžiant jį vėl ir vėl pažingsniui pereisime visus skripto teiginius.
 
-<span class="devtools" style="background-position:-62px -192px"></span> -- "Step over": run the next command, but *don't go into a function*, hotkey `key:F10`.
-: Similar to the previous the "Step" command, but behaves differently if the next statement is a function call. That is: not a built-in, like `alert`, but a function of our own.
+<span class="devtools" style="background-position:-62px -192px"></span> -- "Step over" (peržengti): paleiskite komandą, bet *neikite į funkciją*, mygtukas `key:F10`.
+: Panašu į prieš tai buvusią "Žingsnio" komandą, bet elgiasi kitaip, jeigu sekantis teiginys yra funkcijos išvkietimas. Tai yra: ne iš anksto sutvertas kaip `alert`, bet mūsų pačių funkcija.
 
-    The "Step" command goes into it and pauses the execution at its first line, while "Step over" executes the nested function call invisibly, skipping the function internals.
+    Komanda "Step" prasideda ir stabteli prie pirmos eilės vykdymo, tuo tarpu "Step over" įvykdo matrioškines funkcijas slapta, praleidžiant vidines funkcijas.
 
-    The execution is then paused immediately after that function.
+    Vykdymas tada automatiškai sustabdomas po tos funkcijos.
 
-    That's good if we're not interested to see what happens inside the function call.
+    Tai yra gerai, jeigu mums nėra įdomu kas vyksta funkcijos šaukinio viduje.
 
-<span class="devtools" style="background-position:-4px -194px"></span> -- "Step into", hotkey `key:F11`.
-: That's similar to "Step", but behaves differently in case of asynchronous function calls. If you're only starting to learn JavaScript, then you can ignore the difference, as we don't have asynchronous calls yet.
+<span class="devtools" style="background-position:-4px -194px"></span> -- "Step into" (įžengti), mygtukas `key:F11`.
+: Šis panašus į "Step", bet elgiasi kitaip kai yra šaukiama asinchroninė funkcija. Jeigu dar tik pradeda mokintis JavaScript, tad nekreipkitė dėmesio į skirtumą, nes mes dar nenaudojome asinchroninių šaukinių.
 
-    For the future, just note that "Step" command ignores async actions, such as `setTimeout` (scheduled function call), that execute later. The "Step into" goes into their code, waiting for them if necessary. See [DevTools manual](https://developers.google.com/web/updates/2018/01/devtools#async) for more details.
+    Ateičiai žinokite, kad "Step" komanda ignoruoja async veiksmus, tokius kaip `setTimeout` (suplanuotas funkcijos šaukimas), kuris įvykdomas vėliau. "Step into" eina į kodo vidų, laukdami jeigu reikia. Žiūrėkite daugiau [DevTools manual](https://developers.google.com/web/updates/2018/01/devtools#async).
 
-<span class="devtools" style="background-position:-32px -194px"></span> -- "Step out": continue the execution till the end of the current function, hotkey `key:Shift+F11`.
-: Continue the execution and stop it at the very last line of the current function. That's handy when we accidentally entered a nested call using <span class="devtools" style="background-position:-200px -190px"></span>, but it does not interest us, and we want to continue to its end as soon as possible.
+<span class="devtools" style="background-position:-32px -194px"></span> -- "Step out" (išeiti): tęsti vykdymą iki esamos funkcijos pabaigos, mygtukas `key:Shift+F11`.
+: Tęsti vykdymą ir sustoti pačioje paskutinėje esamos funkcijos eilėje. Tai yra naudinga kai atsitiktinai patekome į matrioškinį šaukimą naudodami <span class="devtools" style="background-position:-200px -190px"></span>, bet mūsų jis nedomina ir mes norime atsidurti jo pabaigoje kaip galima greičiau.
 
-<span class="devtools" style="background-position:-61px -74px"></span> -- enable/disable all breakpoints.
-: That button does not move the execution. Just a mass on/off for breakpoints.
+<span class="devtools" style="background-position:-61px -74px"></span> -- įjungti/išjungti (ang. enable/disable) visus lūžio taškus.
+: Šis mygtukas vykdymo neišjugina. Tik masiškai išjungia/įjungia visus lūžio taškus.
 
-<span class="devtools" style="background-position:-90px -146px"></span> -- enable/disable automatic pause in case of an error.
-: When enabled, and the developer tools is open, a script error automatically pauses the execution. Then we can analyze variables to see what went wrong. So if our script dies with an error, we can open debugger, enable this option and reload the page to see where it dies and what's the context at that moment.
+<span class="devtools" style="background-position:-90px -146px"></span> -- įjungti/išjungti automatinius stabtelėjimus esant klaidai.
+: Kai įjungtas, išriktuotojo įrankiai yra atviti, skripto klaida automatiškai stabteli vykdymą. Tada galima analizuoti kintamuosius ir rasti kas įvyko ne taip. Tad jeigu mūsų skriptas miršta su klaida, mes galime ją išriktuoti. Įjunkite šį pasirinkima ir paleiskite puslapį iš naujo, kad pamatytumėte kur jūsų kodas miršta ir kas tuo metu vyksta.
 
 ```smart header="Continue to here"
 Right click on a line of code opens the context menu with a great option called "Continue to here".
